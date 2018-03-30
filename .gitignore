@@ -112,7 +112,6 @@ package-lock.json
 .DS_STORE
 .netbeans
 nbproject
-.idea
 .node_history
 .vscode
 *.iml
