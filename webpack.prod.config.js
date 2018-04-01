@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 
@@ -24,12 +25,18 @@ module.exports = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest'
+    }),
+    new UglifyJSPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
     })
   ],
 
   output: {
     path: path.join(__dirname, './dist'),
-    filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js'
   },
 
@@ -56,16 +63,6 @@ module.exports = {
     ]
   },
 
-  devServer: {
-    contentBase: path.join(__dirname, './dist'),
-    historyApiFallback: true,
-    host: '0.0.0.0',
-    port: 8080,
-    proxy: {
-      // "/api": "http://localhost:3000"
-    }
-  },
-
   resolve: {
     alias: {
       pages: path.join(__dirname, 'src/pages'),
@@ -74,5 +71,5 @@ module.exports = {
     }
   },
 
-  devtool: 'inline-source-map'
+  devtool: 'cheap-module-source-map'
 };

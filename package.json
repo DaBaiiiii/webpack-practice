@@ -14,6 +14,7 @@
     "html-webpack-plugin": "^3.0.7",
     "react-hot-loader": "^4.0.0-rc.0",
     "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1"
@@ -27,7 +28,7 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
-    "dev-build": "webpack --config webpack.dev.config.js",
+    "build": "webpack --config webpack.prod.config.js",
     "start": "webpack-dev-server --config webpack.dev.config.js --color --progress --hot"
   }
 }

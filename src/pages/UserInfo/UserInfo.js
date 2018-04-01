@@ -11,7 +11,7 @@ class UserInfo extends Component {
 
   render() {
     const {userInfo, isLoading, errorMsg} = this.props.userInfo;
-    Print.bind(null, 'Hello webpack');
+    Print.bind(null, 'Hello webpack1111');
 
     return (
       <div>
