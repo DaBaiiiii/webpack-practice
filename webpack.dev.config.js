@@ -7,7 +7,7 @@ module.exports = {
 
   entry: {
     app: [
-      'react-hot-loader/patch',
+      // 'react-hot-loader/patch',
       path.join(__dirname, 'src/index.js')
     ],
     vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
@@ -69,7 +69,7 @@ module.exports = {
   resolve: {
     alias: {
       pages: path.join(__dirname, 'src/pages'),
-      component: path.join(__dirname, 'src/component'),
+      // component: path.join(__dirname, 'src/component'),
       router: path.join(__dirname, 'src/router'),
     }
   },

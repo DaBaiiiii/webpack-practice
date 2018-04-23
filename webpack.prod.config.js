@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -14,11 +15,19 @@ module.exports = {
     vendor: ['react', 'react-router-dom', 'redux', 'react-dom', 'react-redux']
   },
 
+  output: {
+    path: path.join(__dirname, './dist'),
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
+    publicPath: '/'
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'src/index.html')
     }),
+    new CleanWebpackPlugin(['dist']),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
@@ -31,14 +40,12 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:5].css',
+      allChunks: true
     })
   ],
-
-  output: {
-    path: path.join(__dirname, './dist'),
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].js'
-  },
 
   module: {
     rules: [
@@ -49,7 +56,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: "css-loader"
+        })
       },
       {
         test: /\.(png|jpg|gif|jpeg)$/,
